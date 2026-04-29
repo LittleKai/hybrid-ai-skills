@@ -1,13 +1,23 @@
 {
   "name": "hybrid-ai-skills",
+  "id": "hybrid-ai-skills",
   "owner": {
     "name": "LittleKai"
+  },
+  "metadata": {
+    "description": "Hybrid AI pipeline: Claude as Architect + Reviewer, any Builder model in a separate terminal.",
+    "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "hybrid-ai-skills",
-      "source": { "type": "github", "repo": "LittleKai/hybrid-ai-skills" },
-      "description": "Hybrid AI pipeline: Claude as Architect + Reviewer, any Builder model in a separate terminal."
+      "source": "./",
+      "description": "Hybrid AI pipeline: Claude as Architect + Reviewer, any Builder model in a separate terminal.",
+      "version": "1.0.0",
+      "author": {
+        "name": "LittleKai"
+      },
+      "category": "workflow"
     }
   ]
 }

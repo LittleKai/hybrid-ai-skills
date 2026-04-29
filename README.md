@@ -55,15 +55,12 @@ claude
 ## Plugin structure
 
 ```
-hybrid-ai-skills/
-├── .claude-plugin/
-│   └── marketplace.json
-└── plugins/
-    └── hybrid-ai-skills/
-        ├── .claude-plugin/
-        │   └── plugin.json
-        └── skills/
-            ├── architect/SKILL.md    # /hybrid-ai-skills:architect
-            ├── build/SKILL.md        # /hybrid-ai-skills:build
-            └── review/SKILL.md       # /hybrid-ai-skills:review
+hybrid-ai-skills\
+├── .claude-plugin\
+│   ├── marketplace.json
+│   └── plugin.json
+└── skills\
+    ├── architect\SKILL.md    # /hybrid-ai-skills:architect
+    ├── build\SKILL.md        # /hybrid-ai-skills:build
+    └── review\SKILL.md       # /hybrid-ai-skills:review
 ```
