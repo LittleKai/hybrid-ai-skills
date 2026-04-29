@@ -7,7 +7,7 @@ A Claude Code plugin for a Hybrid AI pipeline that optimizes token cost through 
 ## Installation
 
 ```
-/plugin marketplace add https://github.com/YOUR_USERNAME/hybrid-ai-skills
+/plugin marketplace add https://github.com/LittleKai/hybrid-ai-skills
 /plugin install hybrid-ai-skills
 ```
 
