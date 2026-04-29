@@ -1,0 +1,13 @@
+{
+  "name": "hybrid-ai-skills",
+  "owner": {
+    "name": "LittleKai"
+  },
+  "plugins": [
+    {
+      "name": "hybrid-ai-skills",
+      "source": "./plugins/hybrid-ai-skills",
+      "description": "Hybrid AI pipeline: Claude as Architect + Reviewer, any Builder model in a separate terminal."
+    }
+  ]
+}

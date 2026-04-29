@@ -117,8 +117,8 @@ Print exactly this:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅  SPEC.md is ready
 
-🔜  Open a new terminal in the same project folder
-    and start a Builder session, then run:
+🔜  Open a new terminal in the same project folder,
+    start a Builder session, then run:
     /hybrid-ai-skills:build
 
 🔙  When the Builder is done, return to this terminal:

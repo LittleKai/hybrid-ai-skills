@@ -1,0 +1,8 @@
+{
+  "name": "hybrid-ai-skills",
+  "version": "1.0.0",
+  "description": "Hybrid AI pipeline: Claude as Architect + Reviewer, any Builder model in a separate terminal. Optimizes token cost through clear role separation.",
+  "author": {
+    "name": "LittleKai"
+  }
+}
