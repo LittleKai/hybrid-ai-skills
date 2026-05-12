@@ -18,9 +18,28 @@ The repo supports both Claude Code and Codex plugin discovery.
 
 ### Codex
 
-This repo includes a Codex manifest at `.codex-plugin/plugin.json`.
-Install it from this repository as a Codex plugin source, or clone it into your
-Codex plugin location and install `hybrid-ai-skills` from there.
+This repo includes:
+
+- `.codex-plugin/plugin.json` for the plugin manifest.
+- `.agents/plugins/marketplace.json` for Codex marketplace discovery.
+
+Add the GitHub repository as a Codex marketplace:
+
+```text
+codex plugin marketplace add LittleKai/hybrid-ai-skills
+```
+
+You can also use the full Git URL:
+
+```text
+codex plugin marketplace add https://github.com/LittleKai/hybrid-ai-skills
+```
+
+To update the marketplace later:
+
+```text
+codex plugin marketplace upgrade hybrid-ai-skills-marketplace
+```
 
 ---
 
@@ -70,6 +89,9 @@ Terminal 2 - Builder model
 
 ```text
 hybrid-ai-skills/
+|-- .agents/
+|   `-- plugins/
+|       `-- marketplace.json
 |-- .claude-plugin/
 |   |-- marketplace.json
 |   `-- plugin.json

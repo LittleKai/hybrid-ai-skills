@@ -1,0 +1,20 @@
+{
+  "name": "hybrid-ai-skills-marketplace",
+  "interface": {
+    "displayName": "Hybrid AI Skills"
+  },
+  "plugins": [
+    {
+      "name": "hybrid-ai-skills",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
