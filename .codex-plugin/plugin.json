@@ -1,0 +1,35 @@
+{
+  "name": "hybrid-ai-skills",
+  "version": "1.0.0",
+  "description": "Hybrid AI pipeline: Architect plans, Builder implements, Reviewer verifies.",
+  "author": {
+    "name": "LittleKai"
+  },
+  "repository": "https://github.com/LittleKai/hybrid-ai-skills",
+  "license": "MIT",
+  "keywords": [
+    "hybrid-ai",
+    "workflow",
+    "skills",
+    "planning",
+    "review"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Hybrid AI Skills",
+    "shortDescription": "Split planning, building, and review across model roles.",
+    "longDescription": "A lightweight workflow plugin that separates Architect, Builder, and Reviewer responsibilities to keep implementation focused and reviewable.",
+    "developerName": "LittleKai",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use architect to create SPEC.md",
+      "Use build to implement SPEC.md",
+      "Use review to verify the changes"
+    ],
+    "brandColor": "#2563EB"
+  }
+}
