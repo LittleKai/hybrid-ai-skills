@@ -55,6 +55,24 @@ To update the marketplace later:
 codex plugin marketplace upgrade hybrid-ai-skills-marketplace
 ```
 
+### Global local install
+
+To copy the current local skill files into the common global locations for
+Claude Code, Codex, OpenCode, and Antigravity:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-global.ps1
+```
+
+Preview targets without writing:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-global.ps1 -DryRun
+```
+
+The script verifies installed `SKILL.md` files by SHA-256 hash. Restart the
+agent app or open a new session after installing so skill caches reload.
+
 ---
 
 ## Workflow
@@ -80,9 +98,12 @@ Terminal 2 - Builder model
 /skills architect
 ```
 
-The Architect auto-archives any existing SPEC.md to `.spec-archive/` before
-overwriting, and spot-checks the SPEC against the codebase (via grep) to catch
-references to files/APIs that don't exist.
+The Architect clarifies the project and request before writing a SPEC,
+auto-archives any existing SPEC.md to `.spec-archive/` before overwriting, and
+spot-checks the SPEC against the codebase (via CodeGraph/rg when available) to
+catch references to files/APIs that don't exist. SPECs also include a
+No-Placeholder Contract so Builder knows whether the phase must ship working
+behavior or is intentionally scaffold-only.
 
 **Step 2 - Terminal 2: Builder implements**
 
@@ -93,9 +114,11 @@ references to files/APIs that don't exist.
 /skills build phase 6
 ```
 
-The Builder writes `BUILDER_LOG.md` when complete, listing files touched +
-summary + deviations + open questions. This frees the Reviewer from
-reverse-engineering work from `git diff` alone.
+The Builder runs a focused preflight verification before implementation when
+feasible, then writes `BUILDER_LOG.md` when complete, listing files touched,
+baseline/final verification, placeholder scan results, deviations, and open
+questions. This frees the Reviewer from reverse-engineering work from `git diff`
+alone.
 
 **Step 3 - Terminal 1: Reviewer verifies (optional)**
 
@@ -134,8 +157,10 @@ The Reviewer follows the same rule when rewriting SPECs.
 
 ## Requirements
 
-- Project must have `CLAUDE.md` at the root.
-- `CLAUDE.md` must point to the project summary and relevant context files.
+- Project should have at least one useful context source, such as `CLAUDE.md`,
+  `AGENTS.md`, `README.md`, or relevant files under `.claude/`.
+- If project context is missing, the Architect should ask for the minimum
+  missing context before writing a SPEC.
 - The Builder terminal must run in the same project folder so it can read the SPEC files.
 
 ---
