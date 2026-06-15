@@ -83,11 +83,11 @@ then choose `architect`, `build`, or `review`.
 
 ```text
 Terminal 1 - Architect / Reviewer
-|-- /skills architect         -> reads CLAUDE.md -> writes SPEC.md
-`-- /skills review (phase N?) -> reads BUILDER_LOG.md + SPEC + diff
+|-- /skills architect         -> reads CLAUDE.md -> writes .hybrid-ai/SPEC.md
+`-- /skills review (phase N?) -> reads .hybrid-ai/BUILDER_LOG.md + SPEC + diff
 
 Terminal 2 - Builder model
-`-- /skills build (phase N?)  -> reads SPEC -> implements code -> writes BUILDER_LOG.md
+`-- /skills build (phase N?)  -> reads SPEC -> implements code -> writes .hybrid-ai/BUILDER_LOG.md
 ```
 
 ### Step-by-step
@@ -99,11 +99,20 @@ Terminal 2 - Builder model
 ```
 
 The Architect clarifies the project and request before writing a SPEC,
-auto-archives any existing SPEC.md to `.spec-archive/` before overwriting, and
+auto-archives any existing SPEC to `.hybrid-ai/archive/` before overwriting, and
 spot-checks the SPEC against the codebase (via CodeGraph/rg when available) to
 catch references to files/APIs that don't exist. SPECs also include a
 No-Placeholder Contract so Builder knows whether the phase must ship working
 behavior or is intentionally scaffold-only.
+
+The SPEC is written for a **weaker, non-Claude Builder model** (for example,
+Gemini Pro 3.1) that has no access to the planning conversation and explores
+the codebase poorly. To make a weaker model produce Claude-quality output, the
+Architect inlines a **Context Pack** (exact paths, code excerpts, identifiers,
+and the project conventions restated inline), writes small self-contained steps
+with exact location anchors and per-step "Do NOT" guardrails, and supplies
+worked code for the hard/error-prone parts while leaving mechanical wiring for
+the Builder.
 
 **Step 2 - Terminal 2: Builder implements**
 
@@ -115,7 +124,7 @@ behavior or is intentionally scaffold-only.
 ```
 
 The Builder runs a focused preflight verification before implementation when
-feasible, then writes `BUILDER_LOG.md` when complete, listing files touched,
+feasible, then writes `.hybrid-ai/BUILDER_LOG.md` when complete, listing files touched,
 baseline/final verification, placeholder scan results, deviations, and open
 questions. This frees the Reviewer from reverse-engineering work from `git diff`
 alone.
@@ -130,26 +139,47 @@ alone.
 
 ---
 
+## Artifact location
+
+All workflow artifacts live in a `.hybrid-ai/` folder at the **root of the
+target project**, not loose at the project root:
+
+```text
+.hybrid-ai/
+|-- SPEC.md
+|-- SPEC-phase-N.md
+|-- BUILDER_LOG.md
+|-- REVIEW_LOG.md
+|-- builder-questions.md
+`-- archive/
+```
+
+All three skills always use this exact path. They do **not** auto-discover a
+`.hybrid-ai/` (or a loose `SPEC.md`/`BUILDER_LOG.md`) in a subdirectory or
+sub-project — a monorepo may contain similarly named files, and acting on the
+wrong one would corrupt the handoff. If the project root is ambiguous, the skill
+asks the user which directory is the root first.
+
 ## SPEC conventions
 
 The Architect chooses between two layouts based on project complexity:
 
-**Monolithic** — single `SPEC.md` at project root. Best for short or single-phase work.
+**Monolithic** — single `.hybrid-ai/SPEC.md`. Best for short or single-phase work.
 
-**Phase-based** — `SPEC.md` as index, plus `SPEC-phase-N.md` for each phase.
-Each phase file is self-contained (own Goal/Steps/Verify). Index lists phases
-with brief goals. Use when project has multiple sequential phases (e.g., a
-multi-week roadmap).
+**Phase-based** — `.hybrid-ai/SPEC.md` as index, plus `.hybrid-ai/SPEC-phase-N.md`
+for each phase. Each phase file is self-contained (own Goal/Steps/Verify). Index
+lists phases with brief goals. Use when project has multiple sequential phases
+(e.g., a multi-week roadmap).
 
 The Builder and Reviewer accept an optional `phase N` argument and read the
-corresponding file. With no argument, they default to `SPEC.md`.
+corresponding file. With no argument, they default to `.hybrid-ai/SPEC.md`.
 
 ## Archive policy
 
-When the Architect overwrites `SPEC.md` or `SPEC-phase-N.md`, the old version
-is copied to `.spec-archive/YYYY-MM-DD_HHMMSS-{filename}.md` first. This
-preserves history when SPEC is revised mid-project (e.g., after a Reviewer
-finds the original SPEC had bugs).
+When the Architect overwrites `.hybrid-ai/SPEC.md` or `.hybrid-ai/SPEC-phase-N.md`,
+the old version is copied to `.hybrid-ai/archive/YYYY-MM-DD_HHMMSS-{filename}.md`
+first. This preserves history when SPEC is revised mid-project (e.g., after a
+Reviewer finds the original SPEC had bugs).
 
 The Reviewer follows the same rule when rewriting SPECs.
 

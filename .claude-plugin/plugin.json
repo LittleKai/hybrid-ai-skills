@@ -1,7 +1,7 @@
 {
   "name": "hybrid-ai-skills",
   "description": "Hybrid AI pipeline: Claude as Architect + Reviewer, any Builder model in a separate terminal.",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": {
     "name": "LittleKai"
   },
