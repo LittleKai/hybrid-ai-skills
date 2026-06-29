@@ -1,0 +1,3 @@
+[submodule "deps/opencode-antigravity-auth"]
+	path = deps/opencode-antigravity-auth
+	url = D:/Dev/2.reference_pj/harness-ref/opencode-antigravity-auth

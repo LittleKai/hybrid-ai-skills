@@ -1,0 +1,12 @@
+{
+  "name": "hybrid-ai-skills",
+  "version": "1.2.0",
+  "description": "Hybrid AI pipeline skills + delegate context-gathering CLI.",
+  "type": "module",
+  "license": "MIT",
+  "author": { "name": "LittleKai" },
+  "repository": "https://github.com/LittleKai/hybrid-ai-skills",
+  "engines": { "node": ">=18" },
+  "bin": { "hybrid-ai-delegate": "scripts/delegate.mjs" },
+  "files": ["scripts/delegate.mjs", "skills", "README.md"]
+}

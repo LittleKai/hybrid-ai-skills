@@ -151,8 +151,14 @@ target project**, not loose at the project root:
 |-- BUILDER_LOG.md
 |-- REVIEW_LOG.md
 |-- builder-questions.md
+|-- notepads/
+|-- plans/
+|-- evidence/
+|-- rules/
 `-- archive/
 ```
+
+See [`docs/COORDINATION.md`](docs/COORDINATION.md) for the file-ownership convention used by this shared folder.
 
 All three skills always use this exact path. They do **not** auto-discover a
 `.hybrid-ai/` (or a loose `SPEC.md`/`BUILDER_LOG.md`) in a subdirectory or
